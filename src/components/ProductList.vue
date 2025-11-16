@@ -10,33 +10,12 @@
       <h3>{{ formatCategory(category) }}</h3>
 
       <div class="product-grid">
-        <div
-          v-for="item in items"
-          :key="item.id"
-          class="product-card"
-          @click="openDetails(item.id)"
-        >
-          <img :src="item.imageUrl" loading="lazy" />
-
-          <h4>{{ item.name }}</h4>
-          <p>Category: {{ formatCategory(category) }}</p>
-          <p class="price">₹ {{ item.price }}</p>
-
-          <button class="add" @click.stop="addToCart(item)">
-            <svg
-            fill="currentColor"
-            id="Cart"
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 902.86 902.86"
-          >
-            <path d="M731.6 610.4c-47.9 0-86.8 38.9-86.8 86.8s38.9 86.8 86.8 86.8 86.8-38.9 86.8-86.8-38.9-86.8-86.8-86.8zm0 127.5c-22.4 0-40.7-18.3-40.7-40.7s18.3-40.7 40.7-40.7 40.7 18.3 40.7 40.7-18.3 40.7-40.7 40.7zM349.5 610.4c-47.9 0-86.8 38.9-86.8 86.8s38.9 86.8 86.8 86.8 86.8-38.9 86.8-86.8-38.9-86.8-86.8-86.8zm0 127.5c-22.4 0-40.7-18.3-40.7-40.7s18.3-40.7 40.7-40.7 40.7 18.3 40.7 40.7-18.3 40.7-40.7 40.7z"/>
-            <path d="M842.2 165.5H189.6l-16.4-84.6c-1.9-9.7-10.6-16.8-20.5-16.8H60.6c-11.5 0-20.8 9.3-20.8 20.8s9.3 20.8 20.8 20.8H133l95.2 491.2c1.9 9.7 10.6 16.8 20.5 16.8h508.2c11.5 0 20.8-9.3 20.8-20.8s-9.3-20.8-20.8-20.8H261.4l-13.6-70.1h525.4c9.9 0 18.5-7 20.5-16.8L866.7 186c1.2-6-0.3-12.3-4.2-16.9-3.9-4.6-9.6-7.3-15.3-7.3z"/>
-          </svg>
-            Add to Cart
-          </button>
-        </div>
+        <ProductCard
+        v-for="item in items"
+        :key="item.id"
+        :product="item"
+        @open="openDetails"
+        @add="addToCart"/>
       </div>
     </div>
   </div>
@@ -48,6 +27,7 @@ import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cart";
 
 import productData from "@/data/products.json";
+import ProductCard from "./ProductCard.vue";
 
 const router = useRouter();
 const cartStore = useCartStore();
